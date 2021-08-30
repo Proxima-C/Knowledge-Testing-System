@@ -6,6 +6,6 @@
         public string Password { get; set; }
         public string Role { get; set; }
 
-        public UserProfile UserProfile {  get; set; }
+        public virtual UserProfile UserProfile {  get; set; }
     }
 }

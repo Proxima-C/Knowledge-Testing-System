@@ -8,7 +8,7 @@ namespace DAL.Entities
         [Key]
         public int UserId {  get; set; }
 
-        public User User {  get; set; }
-        public ICollection<Test> PassedTests { get; set; }
+        public virtual User User {  get; set; }
+        public virtual ICollection<Test> PassedTests { get; set; }
     }
 }

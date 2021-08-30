@@ -9,6 +9,6 @@ namespace DAL.Entities
         public string Description { get; set; }
         public TimeSpan TestDuration { get; set; }
 
-        public ICollection<TestQuestion> TestQuestions { get; set; }
+        public virtual ICollection<TestQuestion> TestQuestions { get; set; }
     }
 }
