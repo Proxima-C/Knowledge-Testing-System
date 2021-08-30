@@ -12,6 +12,7 @@ namespace DAL.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            optionsBuilder.UseLazyLoadingProxies();
         }
 
         public DbSet<Test> Tests { get; set; }
