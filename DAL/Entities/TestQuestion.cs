@@ -9,6 +9,5 @@ namespace DAL.Entities
 
         public virtual Test Test {  get; set; }
         public virtual ICollection<TestAnswer> TestQuestionAnswers { get; set; }
-
     }
 }
