@@ -18,6 +18,7 @@ namespace DAL.Data
         public DbSet<Test> Tests { get; set; }
         public DbSet<TestQuestion> TestQuestions { get; set; }
         public DbSet<TestAnswer> TestAnswers { get; set; }
+        public DbSet<TestStatistics> TestStatistics { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserProfile> UserProfiles { get; set; }
 

@@ -10,6 +10,8 @@ namespace DAL.Interfaces
 
         ITestAnswerRepository TestAnswerRepository { get; }
 
+        ITestStatisticsRepository TestStatisticsRepository { get; }
+
         Task SaveAsync();
     }
 }
