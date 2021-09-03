@@ -28,6 +28,8 @@ namespace DAL.Data
                 .HasOne(a => a.UserProfile)
                 .WithOne(b => b.User)
                 .HasForeignKey<UserProfile>(b => b.UserId);
+
+            modelBuilder.Seed();
         }
     }
 }
