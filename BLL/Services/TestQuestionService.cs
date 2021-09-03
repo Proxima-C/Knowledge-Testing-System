@@ -47,10 +47,10 @@ namespace BLL.Services
             await database.SaveAsync();
         }
 
-        public IEnumerable<TestQuestionDTO> GetAll()
+        public async Task<IEnumerable<TestQuestionDTO>> GetAll()
         {
-            IQueryable<TestQuestion> tests = database.TestQuestionRepository.GetAll();
-            return automapper.Map<IQueryable<TestQuestion>, IEnumerable<TestQuestionDTO>>(tests);
+            IEnumerable<TestQuestion> questions = await database.TestQuestionRepository.GetAllAsync();
+            return automapper.Map<IEnumerable<TestQuestion>, IEnumerable<TestQuestionDTO>>(questions);
         }
 
         public async Task<TestQuestionDTO> GetByIdAsync(int id)

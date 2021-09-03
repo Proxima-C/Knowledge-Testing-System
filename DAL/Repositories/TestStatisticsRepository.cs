@@ -2,6 +2,7 @@
 using DAL.Entities;
 using DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -52,9 +53,14 @@ namespace DAL.Repositories
             }
         }
 
-        public IQueryable<TestStatistics> GetAll()
+        public IEnumerable<TestStatistics> GetAll()
         {
-            return _dbSet.AsQueryable();
+            return _dbSet.ToList();
+        }
+
+        public async Task<IEnumerable<TestStatistics>> GetAllAsync()
+        {
+            return await _dbSet.ToListAsync();
         }
 
         public TestStatistics GetById(int id)

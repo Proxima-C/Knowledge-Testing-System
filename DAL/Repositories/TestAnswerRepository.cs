@@ -55,9 +55,14 @@ namespace DAL.Repositories
             }
         }
 
-        public IQueryable<TestAnswer> GetAll()
+        public IEnumerable<TestAnswer> GetAll()
         {
-            return _dbSet.AsQueryable();
+            return _dbSet.ToList();
+        }
+
+        public async Task<IEnumerable<TestAnswer>> GetAllAsync()
+        {
+            return await _dbSet.ToListAsync();
         }
 
         public TestAnswer GetById(int id)
