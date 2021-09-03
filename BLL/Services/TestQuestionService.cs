@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Services
 {
-    class TestQuestionService : ITestQuestionService
+    public class TestQuestionService : ITestQuestionService
     {
         readonly IUnitOfWork database;
         readonly IMapper automapper;

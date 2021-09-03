@@ -2,7 +2,7 @@
 
 namespace BLL.Interfaces
 {
-    interface ITestStatisticsService : ICrud<TestStatisticsDTO>
+    public interface ITestStatisticsService : ICrud<TestStatisticsDTO>
     {
     }
 }

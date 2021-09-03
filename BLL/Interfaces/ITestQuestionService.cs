@@ -2,7 +2,7 @@
 
 namespace BLL.Interfaces
 {
-    interface ITestQuestionService : ICrud<TestQuestionDTO>
+    public interface ITestQuestionService : ICrud<TestQuestionDTO>
     {
     }
 }
