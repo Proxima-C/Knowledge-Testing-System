@@ -5,7 +5,6 @@ using BLL.Validation;
 using DAL.Entities;
 using DAL.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BLL.Services
@@ -25,7 +24,7 @@ namespace BLL.Services
         {
             if (model == null)
             {
-                throw new TestingSystemException("Test answer was not found");
+                throw new TestingSystemException("Test answer can not be null");
             }
 
             TestAnswer answer = automapper.Map<TestAnswer>(model);
@@ -70,7 +69,7 @@ namespace BLL.Services
         {
             if (model == null)
             {
-                throw new TestingSystemException("Test answer was not found");
+                throw new TestingSystemException("Test answer can not be null");
             }
 
             TestAnswer answer = automapper.Map<TestAnswer>(model);
