@@ -27,6 +27,11 @@ namespace BLL.Services
                 throw new TestingSystemException("Test answer can not be null");
             }
 
+            if (model.Text == null)
+            {
+                throw new TestingSystemException("Test answer has incorrect data");
+            }
+
             TestAnswer answer = automapper.Map<TestAnswer>(model);
 
             await database.TestAnswerRepository.AddAsync(answer);
@@ -70,6 +75,11 @@ namespace BLL.Services
             if (model == null)
             {
                 throw new TestingSystemException("Test answer can not be null");
+            }
+
+            if (model.Text == null)
+            {
+                throw new TestingSystemException("Test answer has incorrect data");
             }
 
             TestAnswer answer = automapper.Map<TestAnswer>(model);

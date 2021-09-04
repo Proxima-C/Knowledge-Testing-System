@@ -27,6 +27,11 @@ namespace BLL.Services
                 throw new TestingSystemException("Test can not be null");
             }
 
+            if (model.Title == null || model.Description == null || model.TestDuration.TotalMinutes == 0 || model.TestQuestionsIds == null)
+            {
+                throw new TestingSystemException("Test has incorrect data");
+            }
+
             Test test = automapper.Map<Test>(model);
 
             await database.TestRepository.AddAsync(test);
@@ -70,6 +75,11 @@ namespace BLL.Services
             if (model == null)
             {
                 throw new TestingSystemException("Test can not be null");
+            }
+
+            if (model.Title == null || model.Description == null || model.TestDuration.TotalMinutes == 0 || model.TestQuestionsIds == null)
+            {
+                throw new TestingSystemException("Test has incorrect data");
             }
 
             Test test = automapper.Map<Test>(model);

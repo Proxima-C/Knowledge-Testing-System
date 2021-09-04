@@ -27,6 +27,11 @@ namespace BLL.Services
                 throw new TestingSystemException("Test statistics can not be null");
             }
 
+            if (model.UserScore < 0)
+            {
+                throw new TestingSystemException("Test question has incorrect data");
+            }
+
             TestStatistics statistics = automapper.Map<TestStatistics>(model);
 
             await database.TestStatisticsRepository.AddAsync(statistics);
@@ -70,6 +75,11 @@ namespace BLL.Services
             if (model == null)
             {
                 throw new TestingSystemException("Test statistics can not be null");
+            }
+
+            if (model.UserScore < 0)
+            {
+                throw new TestingSystemException("Test question has incorrect data");
             }
 
             TestStatistics statistics = automapper.Map<TestStatistics>(model);
