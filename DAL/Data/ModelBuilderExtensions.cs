@@ -22,7 +22,7 @@ namespace DAL.Data
                 new TestQuestion
                 {
                     Id = 1,
-                    Text = "Test 1",
+                    Text = "Question 1",
                     TestId = 1
                 }
             );
@@ -31,6 +31,7 @@ namespace DAL.Data
                 new TestAnswer
                 {
                     Id = 1,
+                    Text = "Answer 1",
                     IsCorrect = true,
                     TestQuestionId = 1
                 }
