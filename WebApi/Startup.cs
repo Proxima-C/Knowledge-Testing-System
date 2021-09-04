@@ -1,5 +1,8 @@
 using Authorization;
+using BLL.Interfaces;
+using BLL.Services;
 using DAL.Data;
+using DAL.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -32,6 +35,13 @@ namespace WebApi
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultIdentityConnection")));
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+            services.AddTransient<ITestService, TestService>();
+            services.AddTransient<ITestQuestionService, TestQuestionService>();
+            services.AddTransient<ITestAnswerService, TestAnswerService>();
+            services.AddTransient<ITestStatisticsService, TestStatisticsService>();
 
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationContext>();
