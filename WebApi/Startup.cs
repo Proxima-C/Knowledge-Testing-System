@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using WebApi.ExceptionFilters;
 
 namespace WebApi
 {
@@ -64,7 +65,7 @@ namespace WebApi
                     };
                 });
 
-            services.AddControllers();
+            services.AddControllers(options => options.Filters.Add(new TestingSystemExceptionFilter()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,6 +74,10 @@ namespace WebApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseHsts();
             }
 
             app.UseHttpsRedirection();
