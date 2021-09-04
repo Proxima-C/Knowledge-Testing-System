@@ -14,10 +14,8 @@ namespace WebApi.ExceptionFilters
         {
             if (context.Exception is TestingSystemException exception)
             {
-                context.Result = new ObjectResult(exception.Message)
-                {
-                    StatusCode = exception.Status,
-                };
+                context.Result = new BadRequestObjectResult(exception.Message);
+
                 context.ExceptionHandled = true;
             }
         }
