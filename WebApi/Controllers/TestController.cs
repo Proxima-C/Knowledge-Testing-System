@@ -18,7 +18,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<ActionResult<IEnumerable<TestDTO>>> GetAll()
         {
             IEnumerable<TestDTO> tests = await _testService.GetAll();
             return Ok(tests);
@@ -32,14 +32,14 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Add([FromBody] TestDTO test)
+        public async Task<ActionResult<TestDTO>> Add([FromBody] TestDTO test)
         {
             await _testService.AddAsync(test);
             return Ok(test);
         }
 
         [HttpPut]
-        public async Task<ActionResult> Update(TestDTO test)
+        public async Task<ActionResult<TestDTO>> Update(TestDTO test)
         {
             await _testService.UpdateAsync(test);
             return Ok(test);

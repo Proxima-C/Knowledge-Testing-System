@@ -18,7 +18,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<ActionResult<IEnumerable<TestStatisticsDTO>>> GetAll()
         {
             IEnumerable<TestStatisticsDTO> statistics = await _testStatisticsService.GetAll();
             return Ok(statistics);
@@ -32,14 +32,14 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Add([FromBody] TestStatisticsDTO statistics)
+        public async Task<ActionResult<TestStatisticsDTO>> Add([FromBody] TestStatisticsDTO statistics)
         {
             await _testStatisticsService.AddAsync(statistics);
             return Ok(statistics);
         }
 
         [HttpPut]
-        public async Task<ActionResult> Update(TestStatisticsDTO statistics)
+        public async Task<ActionResult<TestStatisticsDTO>> Update(TestStatisticsDTO statistics)
         {
             await _testStatisticsService.UpdateAsync(statistics);
             return Ok(statistics);
