@@ -37,12 +37,12 @@ namespace WebApi
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            services.AddTransient<ITestService, TestService>();
-            services.AddTransient<ITestQuestionService, TestQuestionService>();
-            services.AddTransient<ITestAnswerService, TestAnswerService>();
-            services.AddTransient<ITestStatisticsService, TestStatisticsService>();
+            services.AddScoped<ITestService, TestService>();
+            services.AddScoped<ITestQuestionService, TestQuestionService>();
+            services.AddScoped<ITestAnswerService, TestAnswerService>();
+            services.AddScoped<ITestStatisticsService, TestStatisticsService>();
 
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationContext>();
