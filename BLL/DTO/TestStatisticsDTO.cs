@@ -4,6 +4,7 @@ namespace BLL.DTO
 {
     public class TestStatisticsDTO
     {
+        public int Id { get; set; }
         public double UserScore { get; set; }
         public TimeSpan PassingTime { get; set; }
         public bool IsPassed { get; set; }
