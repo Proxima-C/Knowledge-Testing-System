@@ -1,4 +1,6 @@
 using Authorization;
+using Authorization.Data;
+using Authorization.Models;
 using BLL.Interfaces;
 using BLL.Services;
 using DAL.Data;
@@ -44,10 +46,14 @@ namespace WebApi
             services.AddScoped<ITestAnswerService, TestAnswerService>();
             services.AddScoped<ITestStatisticsService, TestStatisticsService>();
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationContext>();
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<IdentityContext>();
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            services.AddAuthentication(options => 
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
                 .AddJwtBearer(options =>
                 {
                     options.RequireHttpsMetadata = true;
