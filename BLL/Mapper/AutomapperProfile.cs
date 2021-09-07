@@ -22,6 +22,9 @@ namespace BLL.Mapper
 
             CreateMap<TestStatistics, TestStatisticsDTO>()
                 .ReverseMap();
+
+            CreateMap<User, UserDTO>()
+                .ReverseMap();
         }
     }
 }
