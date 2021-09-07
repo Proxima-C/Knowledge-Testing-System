@@ -39,7 +39,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<TestDTO>> Update(TestDTO test)
+        public async Task<ActionResult<TestDTO>> Update([FromBody] TestDTO test)
         {
             await _testService.UpdateAsync(test);
             return Ok(test);
