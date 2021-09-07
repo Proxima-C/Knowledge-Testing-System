@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System;
 using WebApi.ExceptionFilters;
 
@@ -37,6 +38,9 @@ namespace WebApi
             services.AddDbContext<IdentityContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultIdentityConnection")));
 
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<IdentityContext>();
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -45,9 +49,6 @@ namespace WebApi
             services.AddScoped<ITestQuestionService, TestQuestionService>();
             services.AddScoped<ITestAnswerService, TestAnswerService>();
             services.AddScoped<ITestStatisticsService, TestStatisticsService>();
-
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<IdentityContext>();
 
             services.AddAuthentication(options => 
             {
@@ -71,6 +72,17 @@ namespace WebApi
                     };
                 });
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc(
+                    "v1",
+                    new OpenApiInfo
+                    {
+                        Title = "TKS API",
+                        Version = "v1",
+                    });
+            });
+
             services.AddControllers(options => options.Filters.Add(new TestingSystemExceptionFilter()));
         }
 
@@ -86,6 +98,13 @@ namespace WebApi
                 app.UseExceptionHandler("/error");
                 app.UseHsts();
             }
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c => 
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "KTS API v1");
+            });
 
             app.UseHttpsRedirection();
 
