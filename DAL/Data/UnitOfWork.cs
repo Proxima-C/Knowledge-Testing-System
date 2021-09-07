@@ -14,6 +14,7 @@ namespace DAL.Data
         private ITestQuestionRepository testQuestionRepository;
         private ITestAnswerRepository testAnswerRepository;
         private ITestStatisticsRepository testStatisticsRepository;
+        private IUserRepository userRepository;
 
         public UnitOfWork(DbContextOptions<ApplicationContext> options)
         {
@@ -65,6 +66,18 @@ namespace DAL.Data
                     this.testStatisticsRepository = new TestStatisticsRepository(_context);
                 }
                 return testStatisticsRepository;
+            }
+        }
+
+        public IUserRepository UserRepository
+        {
+            get
+            {
+                if (this.userRepository == null)
+                {
+                    this.userRepository = new UserRepository(_context);
+                }
+                return userRepository;
             }
         }
 

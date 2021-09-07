@@ -12,6 +12,8 @@ namespace DAL.Interfaces
 
         ITestStatisticsRepository TestStatisticsRepository { get; }
 
+        IUserRepository UserRepository { get; }
+
         Task SaveAsync();
     }
 }
