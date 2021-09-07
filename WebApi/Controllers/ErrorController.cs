@@ -9,9 +9,8 @@ namespace WebApi.Controllers
     [ApiController]
     public class ErrorController : ControllerBase
     {
-        [Route("/error-local-development")]
-        public IActionResult ErrorLocalDevelopment(
-        [FromServices] IWebHostEnvironment webHostEnvironment)
+        [HttpGet("error-local-development")]
+        public IActionResult ErrorLocalDevelopment([FromServices] IWebHostEnvironment webHostEnvironment)
         {
             if (webHostEnvironment.EnvironmentName != "Development")
             {
@@ -21,12 +20,10 @@ namespace WebApi.Controllers
 
             var context = HttpContext.Features.Get<IExceptionHandlerFeature>();
 
-            return Problem(
-                detail: context.Error.StackTrace,
-                title: context.Error.Message);
+            return Problem(detail: context.Error.StackTrace, title: context.Error.Message);
         }
 
-        [Route("/error")]
+        [HttpGet("error")]
         public IActionResult Error() => Problem();
     }
 }
