@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Authorization.Models
 {
@@ -38,10 +39,12 @@ namespace Authorization.Models
             ApplicationUser user = new ApplicationUser
             {
                 Id = "1aa9cfc9-f6bf-4a28-a2f4-4e46a0555aa0",
-                UserName = "admin@gmail.com"
+                UserName = "admin@gmail.com",
+                NormalizedUserName = "admin@gmail.com",
             };
             PasswordHasher<ApplicationUser> passwordHasher = new PasswordHasher<ApplicationUser>();
-            passwordHasher.HashPassword(user, "12345");
+            user.SecurityStamp = Guid.NewGuid().ToString();
+            user.PasswordHash = passwordHasher.HashPassword(user, "12345");
 
             modelBuilder.Entity<ApplicationUser>().HasData(user);
         }
