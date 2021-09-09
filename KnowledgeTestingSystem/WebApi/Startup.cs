@@ -72,6 +72,16 @@ namespace WebApi
                     };
                 });
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "CorsPolicy", builder => 
+                {
+                    builder.AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader();
+                });
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc(
@@ -105,10 +115,12 @@ namespace WebApi
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "KTS API v1");
             });
-
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("CorsPolicy");
 
             app.UseAuthentication();
 
