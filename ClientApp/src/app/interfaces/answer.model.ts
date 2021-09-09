@@ -1,6 +1,5 @@
 export interface Answer {
-    id: number;
-    text: string;
-    isCorrect: boolean;
-  }
-  
+  id: number;
+  text: string;
+  isCorrect: boolean;
+}
