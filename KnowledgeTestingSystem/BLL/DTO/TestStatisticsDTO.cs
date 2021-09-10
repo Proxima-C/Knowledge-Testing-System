@@ -9,6 +9,6 @@ namespace BLL.DTO
         public TimeSpan PassingTime { get; set; }
         public bool IsPassed { get; set; }
         public int TestId { get; set; }
-        public string UserId { get; set; }
+        public int UserId { get; set; }
     }
 }
