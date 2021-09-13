@@ -12,6 +12,6 @@ namespace DAL.Entities
         public int UserId { get; set; }
 
         public virtual Test Test { get; set; }
-        public virtual User User { get; set; }
+        public virtual UserProfile User { get; set; }
     }
 }
