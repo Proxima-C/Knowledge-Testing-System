@@ -27,9 +27,9 @@ namespace BLL.Services
                 throw new TestingSystemException("Test statistics can not be null");
             }
 
-            if (model.UserScore < 0)
+            if (model.UserScore < 0 || model.StartDate > model.EndDate)
             {
-                throw new TestingSystemException("Test question has incorrect data");
+                throw new TestingSystemException("Test statistics has incorrect data");
             }
 
             TestStatistics statistics = automapper.Map<TestStatistics>(model);
@@ -77,9 +77,9 @@ namespace BLL.Services
                 throw new TestingSystemException("Test statistics can not be null");
             }
 
-            if (model.UserScore < 0)
+            if (model.UserScore < 0 || model.StartDate > model.EndDate)
             {
-                throw new TestingSystemException("Test question has incorrect data");
+                throw new TestingSystemException("Test statistics has incorrect data");
             }
 
             TestStatistics statistics = automapper.Map<TestStatistics>(model);
