@@ -4,6 +4,6 @@
     {
         public string UserName { get; set; }
 
-        public virtual UserProfile UserProfile {  get; set; }
+        public virtual UserProfile UserProfile { get; set; }
     }
 }
