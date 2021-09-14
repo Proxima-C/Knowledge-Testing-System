@@ -4,6 +4,6 @@ export interface Test {
     id: number;
     title: string;
     description: string;
-    duration: TimeRanges;
-    questions: Question[];
+    testDuration: number;
+    testQuestions: Question[];
 }
