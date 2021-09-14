@@ -29,7 +29,14 @@ namespace DAL.Data
                     Id = 1,
                     Title = "Test 1",
                     Description = "Test description",
-                    TestDuration = new TimeSpan(2, 0, 0)
+                    TestDuration = 90,
+                },
+                new Test
+                {
+                    Id = 2,
+                    Title = "Test 2",
+                    Description = "Test description",
+                    TestDuration = 60,
                 }
             );
         }
@@ -42,6 +49,30 @@ namespace DAL.Data
                     Id = 1,
                     Text = "Question 1",
                     TestId = 1
+                },
+                new TestQuestion
+                {
+                    Id = 2,
+                    Text = "Question 2",
+                    TestId = 1
+                },
+                new TestQuestion
+                {
+                    Id = 3,
+                    Text = "Question 3",
+                    TestId = 1
+                },
+                new TestQuestion
+                {
+                    Id = 4,
+                    Text = "Question 1",
+                    TestId = 2
+                },
+                new TestQuestion
+                {
+                    Id = 5,
+                    Text = "Question 2",
+                    TestId = 2
                 }
             );
         }
@@ -55,21 +86,126 @@ namespace DAL.Data
                     Text = "Answer 1",
                     IsCorrect = true,
                     TestQuestionId = 1
+                },
+                new TestAnswer
+                {
+                    Id = 2,
+                    Text = "Answer 2",
+                    IsCorrect = false,
+                    TestQuestionId = 1
+                },
+                new TestAnswer
+                {
+                    Id = 3,
+                    Text = "Answer 1",
+                    IsCorrect = false,
+                    TestQuestionId = 2
+                },
+                new TestAnswer
+                {
+                    Id = 4,
+                    Text = "Answer 2",
+                    IsCorrect = true,
+                    TestQuestionId = 2
+                },
+                new TestAnswer
+                {
+                    Id = 5,
+                    Text = "Answer 1",
+                    IsCorrect = true,
+                    TestQuestionId = 3
+                },
+                new TestAnswer
+                {
+                    Id = 6,
+                    Text = "Answer 2",
+                    IsCorrect = false,
+                    TestQuestionId = 3
+                },
+                new TestAnswer
+                {
+                    Id = 7,
+                    Text = "Answer 1",
+                    IsCorrect = true,
+                    TestQuestionId = 4
+                },
+                new TestAnswer
+                {
+                    Id = 8,
+                    Text = "Answer 2",
+                    IsCorrect = false,
+                    TestQuestionId = 4
+                },
+                new TestAnswer
+                {
+                    Id = 9,
+                    Text = "Answer 1",
+                    IsCorrect = true,
+                    TestQuestionId = 5
+                },
+                new TestAnswer
+                {
+                    Id = 10,
+                    Text = "Answer 2",
+                    IsCorrect = false,
+                    TestQuestionId = 5
                 }
             );
         }
 
         private static void SeedTestStatistics(ModelBuilder modelBuilder)
         {
+            DateTime startDate = DateTime.Now;
             modelBuilder.Entity<TestStatistics>().HasData(
                 new TestStatistics
                 {
                     Id = 1,
                     UserScore = 100,
-                    PassingTime = new TimeSpan(1, 40, 57),
+                    StartDate = startDate,
+                    EndDate = startDate.AddMinutes(30),
                     IsPassed = true,
                     TestId = 1,
                     UserId = 1
+                },
+                new TestStatistics
+                {
+                    Id = 2,
+                    UserScore = 100,
+                    StartDate = startDate,
+                    EndDate = startDate.AddMinutes(30),
+                    IsPassed = true,
+                    TestId = 1,
+                    UserId = 1
+                },
+                new TestStatistics
+                {
+                    Id = 3,
+                    UserScore = 90,
+                    StartDate = startDate,
+                    EndDate = startDate.AddMinutes(80),
+                    IsPassed = true,
+                    TestId = 1,
+                    UserId = 2
+                },
+                new TestStatistics
+                {
+                    Id = 4,
+                    UserScore = 50,
+                    StartDate = startDate,
+                    EndDate = startDate.AddMinutes(20),
+                    IsPassed = false,
+                    TestId = 2,
+                    UserId = 2
+                },
+                new TestStatistics
+                {
+                    Id = 5,
+                    UserScore = 100,
+                    StartDate = startDate,
+                    EndDate = startDate.AddMinutes(55),
+                    IsPassed = true,
+                    TestId = 2,
+                    UserId = 2
                 }
             );
         }
@@ -80,7 +216,12 @@ namespace DAL.Data
                 new User
                 {
                     Id = 1,
-                    UserName = "admin@gmail.com",
+                    UserName = "admin",
+                },
+                new User
+                {
+                    Id = 2,
+                    UserName = "user",
                 }
             );
         }
@@ -91,6 +232,16 @@ namespace DAL.Data
                 new UserProfile
                 {
                     UserId = 1,
+                    Name = "admin",
+                    Age = 100,
+                    Address = "admin's address",
+                },
+                new UserProfile
+                {
+                    UserId = 2,
+                    Name = "user's name",
+                    Age = 30,
+                    Address = "user's address",
                 }
             );
         }
