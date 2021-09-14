@@ -27,7 +27,7 @@ namespace BLL.Services
                 throw new TestingSystemException("Test can not be null");
             }
 
-            if (model.Title == null || model.Description == null || model.TestDuration.TotalMinutes == 0 || model.TestQuestionsIds == null)
+            if (model.Title == null || model.Description == null || model.TestDuration <= 0 || model.TestQuestionsIds == null)
             {
                 throw new TestingSystemException("Test has incorrect data");
             }
@@ -77,7 +77,7 @@ namespace BLL.Services
                 throw new TestingSystemException("Test can not be null");
             }
 
-            if (model.Title == null || model.Description == null || model.TestDuration.TotalMinutes == 0 || model.TestQuestionsIds == null)
+            if (model.Title == null || model.Description == null || model.TestDuration <= 0 || model.TestQuestionsIds == null)
             {
                 throw new TestingSystemException("Test has incorrect data");
             }
