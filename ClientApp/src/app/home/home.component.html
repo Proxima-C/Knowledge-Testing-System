@@ -1,0 +1,9 @@
+<div class="tests-container">
+  <div class="single-item" *ngFor="let test of tests">
+    <p class="title">{{ test.title }}</p>
+    <p class="right-title">
+      {{ test.testDuration }}
+    </p>
+    <p>{{ test.description }}</p>
+  </div>
+</div>

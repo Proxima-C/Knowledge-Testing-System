@@ -1,0 +1,17 @@
+.tests-container {
+  display: inline-grid;
+  width: 100%;
+  grid-template-columns: 1fr 1fr;
+  gap: 1em;
+}
+
+.test-item {
+  width: 100%;
+  box-shadow: 0 0 5px #dddddd;
+  border-radius: 5px;
+  padding: 1em;
+}
+
+.title {
+  font-weight: 600;
+}
