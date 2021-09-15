@@ -46,7 +46,7 @@ namespace Authorization.Models
 
         private static void SeedApplicationUsers(ModelBuilder modelBuilder)
         {
-            ApplicationUser admin = new ApplicationUser
+            AppUser admin = new AppUser
             {
                 Id = AdminId,
                 UserName = "admin",
@@ -56,7 +56,7 @@ namespace Authorization.Models
                 NormalizedEmail = "admin@gmail.com".ToUpper(),
             };
 
-            ApplicationUser user = new ApplicationUser
+            AppUser user = new AppUser
             {
                 Id = AppUserId,
                 UserName = "user",
@@ -66,11 +66,11 @@ namespace Authorization.Models
                 NormalizedEmail = "user@gmail.com".ToUpper(),
             };
 
-            PasswordHasher<ApplicationUser> passwordHasher = new PasswordHasher<ApplicationUser>();
+            PasswordHasher<AppUser> passwordHasher = new PasswordHasher<AppUser>();
             admin.PasswordHash = passwordHasher.HashPassword(admin, "12345");
             user.PasswordHash = passwordHasher.HashPassword(user, "55555");
 
-            modelBuilder.Entity<ApplicationUser>().HasData(admin, user);
+            modelBuilder.Entity<AppUser>().HasData(admin, user);
         }
     }
 }

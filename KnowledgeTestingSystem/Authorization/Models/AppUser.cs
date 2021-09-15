@@ -2,7 +2,7 @@
 
 namespace Authorization.Models
 {
-    public class ApplicationUser : IdentityUser
+    public class AppUser : IdentityUser
     {
     }
 }

@@ -38,7 +38,7 @@ namespace WebApi
             services.AddDbContext<IdentityContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultIdentityConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<IdentityContext>();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
