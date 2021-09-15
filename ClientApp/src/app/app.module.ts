@@ -11,6 +11,7 @@ import { AnswerComponent } from './answer/answer.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { UserComponent } from './user/user.component';
 import { HomeComponent } from './home/home.component';
+import { NavMenuComponent } from './nav-menu/nav-menu.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { HomeComponent } from './home/home.component';
     AnswerComponent,
     StatisticsComponent,
     UserComponent,
-    HomeComponent
+    HomeComponent,
+    NavMenuComponent
   ],
   imports: [
     BrowserModule,
