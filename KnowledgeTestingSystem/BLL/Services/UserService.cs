@@ -5,6 +5,7 @@ using BLL.Validation;
 using DAL.Entities;
 using DAL.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BLL.Services
@@ -30,6 +31,12 @@ namespace BLL.Services
             if (string.IsNullOrEmpty(model.UserName))
             {
                 throw new TestingSystemException("User has incorrect data");
+            }
+
+            IEnumerable<User> users = await database.UserRepository.GetAllAsync();
+            if (users.Any(u => u.UserName == model.UserName))
+            {
+                throw new TestingSystemException("Username already exists");
             }
 
             User user = automapper.Map<User>(model);
@@ -80,6 +87,12 @@ namespace BLL.Services
             if (string.IsNullOrEmpty(model.UserName))
             {
                 throw new TestingSystemException("User has incorrect data");
+            }
+
+            IEnumerable<User> users = await database.UserRepository.GetAllAsync();
+            if (users.Any(u => u.UserName == model.UserName))
+            {
+                throw new TestingSystemException("Username already exists");
             }
 
             User user = automapper.Map<User>(model);
