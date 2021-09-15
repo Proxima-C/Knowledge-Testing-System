@@ -1,6 +1,7 @@
 ﻿using Authorization;
-using DAL.Entities;
+using Authorization.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace WebApi.Controllers
 {
@@ -15,30 +17,27 @@ namespace WebApi.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        // -> "IdentityDbContext"
-        private readonly List<User> people = new List<User>
-        {
-            new User { UserName="admin@gmail.com", Password="12345", Role = "admin" },
-            new User { UserName="qwerty@gmail.com", Password="55555", Role = "user" }
-        };
+        private readonly UserManager<AppUser> _userManager;
 
-        [HttpPost("token")]
-        public IActionResult Token(string username, string password)
+        public AccountController(UserManager<AppUser> userManager)
         {
-            var identity = GetIdentity(username, password);
-            if (identity == null)
-            {
-                return BadRequest(new { errorText = "Invalid username or password." });
-            }
+            _userManager = userManager;
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Token([FromBody] LoginModel loginModel)
+        {
+            var identity = await GetIdentityAsync(loginModel.Username, loginModel.Password);
+            if (identity == null) return BadRequest("Invalid username or password.");
 
             var now = DateTime.UtcNow;
-            // create JWT-token
+
             var jwt = new JwtSecurityToken(
-                    issuer: AuthOptions.ISSUER,
-                    audience: AuthOptions.AUDIENCE,
+                    issuer: AuthOptions.Issuer,
+                    audience: AuthOptions.Audience,
                     notBefore: now,
+                    expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LifeTimeInMinutes)),
                     claims: identity.Claims,
-                    expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
                     signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(),
                     SecurityAlgorithms.HmacSha256));
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
@@ -52,34 +51,72 @@ namespace WebApi.Controllers
             return Ok(response);
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterModel model)
+        {
+            var userExists = await _userManager.FindByNameAsync(model.Username);
+            if (userExists != null)
+                return BadRequest("Username already exists.");
+
+            AppUser user = new AppUser()
+            {
+                UserName = model.Username,
+                Email = model.Email
+            };
+            var result = await _userManager.CreateAsync(user, model.Password);
+
+            if (!result.Succeeded)
+                return BadRequest("User creation failed. Check user data and try again.");
+
+            return Ok("User created successfully.");
+        }
+
+        #region testing
+        [Authorize]
         [Route("getlogin")]
+        [HttpGet]
         public IActionResult GetLogin()
         {
             return Ok($"Your username: {User.Identity.Name}");
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = "admin")]
-        [Route("getrole")]
-        public IActionResult GetRole()
+        [Authorize(Roles = "Admin")]
+        [Route("isandmin")]
+        [HttpGet]
+        public IActionResult IsAdmin()
         {
             return Ok("Your role: admin");
         }
 
-        private ClaimsIdentity GetIdentity(string username, string password)
+        [Authorize(Roles = "Moderator")]
+        [Route("ismoderator")]
+        [HttpGet]
+        public IActionResult IsModerator()
         {
-            User person = people.FirstOrDefault(x => x.UserName == username && x.Password == password);
-            if (person == null)
+            return Ok("Your role: moderator");
+        }
+        #endregion
+
+        private async Task<ClaimsIdentity> GetIdentityAsync(string username, string password)
+        {
+            var user = await _userManager.FindByNameAsync(username);
+            var role = await _userManager.GetRolesAsync(user);
+
+            if (!await _userManager.CheckPasswordAsync(user, password))
             {
                 return null;
             }
+
             var claims = new List<Claim>
                 {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, person.UserName),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, person.Role)
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName),
+                    new Claim(ClaimsIdentity.DefaultRoleClaimType, role.FirstOrDefault())
                 };
-            var claimsIdentity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
+
+            var claimsIdentity = new ClaimsIdentity(claims, "Token",
+                ClaimsIdentity.DefaultNameClaimType,
                 ClaimsIdentity.DefaultRoleClaimType);
+
             return claimsIdentity;
         }
     }
