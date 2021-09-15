@@ -1,5 +1,7 @@
 ﻿using Authorization;
 using Authorization.Models;
+using BLL.DTO;
+using BLL.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -18,10 +20,12 @@ namespace WebApi.Controllers
     public class AccountController : ControllerBase
     {
         private readonly UserManager<AppUser> _userManager;
+        private readonly IUserProfileService _userProfileService;
 
-        public AccountController(UserManager<AppUser> userManager)
+        public AccountController(UserManager<AppUser> userManager, IUserProfileService userProfileService)
         {
             _userManager = userManager;
+            _userProfileService = userProfileService;
         }
 
         [HttpPost("login")]
@@ -67,6 +71,14 @@ namespace WebApi.Controllers
 
             if (!result.Succeeded)
                 return BadRequest("User creation failed. Check user data and try again.");
+
+            UserDTO userProfile = new UserDTO()
+            {
+                UserName = model.Username,
+                Name = model.Name
+            };
+
+            await _userProfileService.AddAsync(userProfile);
 
             return Ok("User created successfully.");
         }
