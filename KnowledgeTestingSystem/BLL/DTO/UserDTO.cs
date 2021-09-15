@@ -8,7 +8,6 @@ namespace BLL.DTO
         public string UserName { get; set; }
         public string Name { get; set; }
         public int Age { get; set; }
-        public string Address { get; set; }
         public ICollection<int> UserTestStatisticsIds { get; set; }
     }
 }
