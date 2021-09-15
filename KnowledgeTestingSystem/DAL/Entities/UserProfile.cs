@@ -1,16 +1,13 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace DAL.Entities
 {
-    public class UserProfile
+    public class UserProfile : BaseEntity
     {
-        [Key]
-        public int UserId { get; set; }
+        public string UserName { get; set; }
         public string Name { get; set; }
         public int Age { get; set; }
 
-        public virtual User User { get; set; }
         public virtual ICollection<TestStatistics> UserTestStatistics { get; set; }
     }
 }

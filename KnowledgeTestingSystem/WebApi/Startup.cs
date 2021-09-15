@@ -49,7 +49,7 @@ namespace WebApi
             services.AddScoped<ITestQuestionService, TestQuestionService>();
             services.AddScoped<ITestAnswerService, TestAnswerService>();
             services.AddScoped<ITestStatisticsService, TestStatisticsService>();
-            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserProfileService, UserProfileService>();
 
             services.AddAuthentication(options => 
             {

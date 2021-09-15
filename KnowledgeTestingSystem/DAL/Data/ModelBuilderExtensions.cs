@@ -16,8 +16,6 @@ namespace DAL.Data
 
             SeedTestStatistics(modelBuilder);
 
-            SeedUsers(modelBuilder);
-
             SeedUserProfiles(modelBuilder);
         }
 
@@ -165,7 +163,7 @@ namespace DAL.Data
                     EndDate = startDate.AddMinutes(30),
                     IsPassed = true,
                     TestId = 1,
-                    UserId = 1
+                    UserProfileId = 1
                 },
                 new TestStatistics
                 {
@@ -175,7 +173,7 @@ namespace DAL.Data
                     EndDate = startDate.AddMinutes(30),
                     IsPassed = true,
                     TestId = 1,
-                    UserId = 1
+                    UserProfileId = 1
                 },
                 new TestStatistics
                 {
@@ -185,7 +183,7 @@ namespace DAL.Data
                     EndDate = startDate.AddMinutes(80),
                     IsPassed = true,
                     TestId = 1,
-                    UserId = 2
+                    UserProfileId = 2
                 },
                 new TestStatistics
                 {
@@ -195,7 +193,7 @@ namespace DAL.Data
                     EndDate = startDate.AddMinutes(20),
                     IsPassed = false,
                     TestId = 2,
-                    UserId = 2
+                    UserProfileId = 2
                 },
                 new TestStatistics
                 {
@@ -205,23 +203,7 @@ namespace DAL.Data
                     EndDate = startDate.AddMinutes(55),
                     IsPassed = true,
                     TestId = 2,
-                    UserId = 2
-                }
-            );
-        }
-
-        private static void SeedUsers(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<User>().HasData(
-                new User
-                {
-                    Id = 1,
-                    UserName = "admin",
-                },
-                new User
-                {
-                    Id = 2,
-                    UserName = "user",
+                    UserProfileId = 2
                 }
             );
         }
@@ -231,17 +213,24 @@ namespace DAL.Data
             modelBuilder.Entity<UserProfile>().HasData(
                 new UserProfile
                 {
-                    UserId = 1,
+                    Id = 1,
+                    UserName = "admin",
                     Name = "admin",
                     Age = 100,
-                    Address = "admin's address",
                 },
                 new UserProfile
                 {
-                    UserId = 2,
+                    Id = 2,
+                    UserName = "user",
                     Name = "user's name",
                     Age = 30,
-                    Address = "user's address",
+                },
+                new UserProfile
+                {
+                    Id = 3,
+                    UserName = "moderator",
+                    Name = "moderator's name",
+                    Age = 25,
                 }
             );
         }

@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserProfileRepository : IUserProfileRepository
     {
         readonly ApplicationContext _context;
-        readonly DbSet<User> _dbSet;
+        readonly DbSet<UserProfile> _dbSet;
 
-        public UserRepository(ApplicationContext context)
+        public UserProfileRepository(ApplicationContext context)
         {
             _context = context;
-            _dbSet = context.Set<User>();
+            _dbSet = context.Set<UserProfile>();
         }
 
-        public void Add(User entity)
+        public void Add(UserProfile entity)
         {
             if (entity != null)
             {
@@ -27,7 +27,7 @@ namespace DAL.Repositories
             }
         }
 
-        public async Task AddAsync(User entity)
+        public async Task AddAsync(UserProfile entity)
         {
             if (entity != null)
             {
@@ -37,7 +37,7 @@ namespace DAL.Repositories
 
         public void DeleteById(int id)
         {
-            User entity = _dbSet.Find(id);
+            UserProfile entity = _dbSet.Find(id);
             if (entity != null)
             {
                 _dbSet.Remove(entity);
@@ -46,34 +46,34 @@ namespace DAL.Repositories
 
         public async Task DeleteByIdAsync(int id)
         {
-            User entity = await _dbSet.FindAsync(id);
+            UserProfile entity = await _dbSet.FindAsync(id);
             if (entity != null)
             {
                 _dbSet.Remove(entity);
             }
         }
 
-        public IEnumerable<User> GetAll()
+        public IEnumerable<UserProfile> GetAll()
         {
             return _dbSet.ToList();
         }
 
-        public async Task<IEnumerable<User>> GetAllAsync()
+        public async Task<IEnumerable<UserProfile>> GetAllAsync()
         {
             return await _dbSet.ToListAsync();
         }
 
-        public User GetById(int id)
+        public UserProfile GetById(int id)
         {
             return _dbSet.Find(id);
         }
 
-        public async Task<User> GetByIdAsync(int id)
+        public async Task<UserProfile> GetByIdAsync(int id)
         {
             return await _dbSet.FindAsync(id);
         }
 
-        public void Update(User entity)
+        public void Update(UserProfile entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
         }

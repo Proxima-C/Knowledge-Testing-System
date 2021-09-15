@@ -23,10 +23,8 @@ namespace BLL.Mapper
             CreateMap<TestStatistics, TestStatisticsDTO>()
                 .ReverseMap();
 
-            CreateMap<User, UserDTO>()
-                .ForMember(dest => dest.UserTestStatisticsIds, opt => opt.MapFrom(src => src.UserProfile.UserTestStatistics.Select(e => e.Id)))
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.UserProfile.Name))
-                .ForMember(dest => dest.Age, opt => opt.MapFrom(src => src.UserProfile.Age))
+            CreateMap<UserProfile, UserDTO>()
+                .ForMember(dest => dest.UserTestStatisticsIds, opt => opt.MapFrom(src => src.UserTestStatistics.Select(e => e.Id)))
                 .ReverseMap();
         }
     }

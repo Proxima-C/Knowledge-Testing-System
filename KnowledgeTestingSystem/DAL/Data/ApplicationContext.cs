@@ -19,16 +19,10 @@ namespace DAL.Data
         public DbSet<TestQuestion> TestQuestions { get; set; }
         public DbSet<TestAnswer> TestAnswers { get; set; }
         public DbSet<TestStatistics> TestStatistics { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<UserProfile> UserProfiles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>()
-                .HasOne(a => a.UserProfile)
-                .WithOne(b => b.User)
-                .HasForeignKey<UserProfile>(b => b.UserId);
-
             modelBuilder.Seed();
         }
     }

@@ -14,7 +14,7 @@ namespace DAL.Data
         private ITestQuestionRepository testQuestionRepository;
         private ITestAnswerRepository testAnswerRepository;
         private ITestStatisticsRepository testStatisticsRepository;
-        private IUserRepository userRepository;
+        private IUserProfileRepository userProfileRepository;
 
         public UnitOfWork(DbContextOptions<ApplicationContext> options)
         {
@@ -69,15 +69,15 @@ namespace DAL.Data
             }
         }
 
-        public IUserRepository UserRepository
+        public IUserProfileRepository UserProfileRepository
         {
             get
             {
-                if (this.userRepository == null)
+                if (this.userProfileRepository == null)
                 {
-                    this.userRepository = new UserRepository(_context);
+                    this.userProfileRepository = new UserProfileRepository(_context);
                 }
-                return userRepository;
+                return userProfileRepository;
             }
         }
 

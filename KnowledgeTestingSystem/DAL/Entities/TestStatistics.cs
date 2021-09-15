@@ -9,9 +9,9 @@ namespace DAL.Entities
         public DateTime EndDate { get; set; }
         public bool IsPassed { get; set; }
         public int TestId { get; set; }
-        public int UserId { get; set; }
+        public int UserProfileId { get; set; }
 
         public virtual Test Test { get; set; }
-        public virtual UserProfile User { get; set; }
+        public virtual UserProfile UserProfile { get; set; }
     }
 }
