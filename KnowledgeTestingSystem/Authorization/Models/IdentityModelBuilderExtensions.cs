@@ -12,7 +12,6 @@ namespace Authorization.Models
         private static readonly string ModeratorRoleId = "de79dcf1-6537-44f6-a580-b0814fda1f0d";
 
         private static readonly string AppUserId = "02174cf0–9412–4cfe-afbf-59f706d72cf6";
-        private static readonly string AppUserRoleId = "341743f0-asd2–42de-afbf-59kmkkmk72cf6";
 
         public static void Seed(this ModelBuilder modelBuilder)
         {
@@ -35,11 +34,6 @@ namespace Authorization.Models
                 {
                     RoleId = ModeratorRoleId,
                     UserId = ModeratorId
-                },
-                new IdentityUserRole<string>()
-                {
-                    RoleId = AppUserRoleId,
-                    UserId = AppUserId
                 }
             );
         }
@@ -48,8 +42,7 @@ namespace Authorization.Models
         {
             modelBuilder.Entity<IdentityRole>().HasData(
                 new IdentityRole() { Id = AdminRoleId, Name = "Admin", ConcurrencyStamp = AdminRoleId, NormalizedName = "Admin".ToUpper() },
-                new IdentityRole() { Id = ModeratorRoleId, Name = "Moderator", ConcurrencyStamp = ModeratorRoleId, NormalizedName = "Moderator".ToUpper() },
-                new IdentityRole() { Id = AppUserRoleId, Name = "User", ConcurrencyStamp = AppUserRoleId, NormalizedName = "User".ToUpper() }
+                new IdentityRole() { Id = ModeratorRoleId, Name = "Moderator", ConcurrencyStamp = ModeratorRoleId, NormalizedName = "Moderator".ToUpper() }
             );
         }
 
