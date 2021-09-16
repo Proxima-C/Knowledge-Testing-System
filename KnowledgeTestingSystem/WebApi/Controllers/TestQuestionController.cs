@@ -1,5 +1,6 @@
 ﻿using BLL.DTO;
 using BLL.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -31,6 +32,7 @@ namespace WebApi.Controllers
             return new ObjectResult(question);
         }
 
+        [Authorize(Roles = "Admin, Moderator")]
         [HttpPost]
         public async Task<ActionResult<TestQuestionDTO>> Add([FromBody] TestQuestionDTO question)
         {
@@ -38,6 +40,7 @@ namespace WebApi.Controllers
             return Ok(question);
         }
 
+        [Authorize(Roles = "Admin, Moderator")]
         [HttpPut]
         public async Task<ActionResult<TestQuestionDTO>> Update(TestQuestionDTO question)
         {
@@ -45,6 +48,7 @@ namespace WebApi.Controllers
             return Ok(question);
         }
 
+        [Authorize(Roles = "Admin, Moderator")]
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
