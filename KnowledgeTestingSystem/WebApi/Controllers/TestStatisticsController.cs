@@ -1,11 +1,13 @@
 ﻿using BLL.DTO;
 using BLL.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace WebApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class TestStatisticsController : ControllerBase
@@ -45,6 +47,7 @@ namespace WebApi.Controllers
             return Ok(statistics);
         }
 
+        [Authorize(Roles = "Admin, Moderator")]
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
