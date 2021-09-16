@@ -216,21 +216,18 @@ namespace DAL.Data
                     Id = 1,
                     UserName = "admin",
                     Name = "admin",
-                    Age = 100,
                 },
                 new UserProfile
                 {
                     Id = 2,
                     UserName = "user",
                     Name = "user's name",
-                    Age = 30,
                 },
                 new UserProfile
                 {
                     Id = 3,
                     UserName = "moderator",
                     Name = "moderator's name",
-                    Age = 25,
                 }
             );
         }
