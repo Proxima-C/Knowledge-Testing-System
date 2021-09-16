@@ -4,7 +4,6 @@ export interface User {
     email: string;
     name: string;
     age: number;
-    address: string;
-    password: string;
-    role: string;
+    roles: string[];
+    userTestStatisticsIds: number[];
 }

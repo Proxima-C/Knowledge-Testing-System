@@ -5,5 +5,5 @@ export interface Test {
     title: string;
     description: string;
     testDuration: number;
-    testQuestions: Question[];
+    testQuestionsIds: number[];
 }
