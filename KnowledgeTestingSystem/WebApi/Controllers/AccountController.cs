@@ -9,7 +9,6 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -29,7 +28,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Token([FromBody] LoginModel loginModel)
+        public async Task<IActionResult> Login([FromBody] LoginModel loginModel)
         {
             var identity = await GetIdentityAsync(loginModel.Username, loginModel.Password);
             if (identity == null) return BadRequest("Invalid username or password.");
@@ -83,36 +82,9 @@ namespace WebApi.Controllers
             return Ok("User created successfully.");
         }
 
-        #region testing
-        [Authorize]
-        [Route("getlogin")]
-        [HttpGet]
-        public IActionResult GetLogin()
-        {
-            return Ok($"Your username: {User.Identity.Name}");
-        }
-
-        [Authorize(Roles = "Admin")]
-        [Route("isandmin")]
-        [HttpGet]
-        public IActionResult IsAdmin()
-        {
-            return Ok("Your role: admin");
-        }
-
-        [Authorize(Roles = "Moderator")]
-        [Route("ismoderator")]
-        [HttpGet]
-        public IActionResult IsModerator()
-        {
-            return Ok("Your role: moderator");
-        }
-        #endregion
-
         private async Task<ClaimsIdentity> GetIdentityAsync(string username, string password)
         {
             var user = await _userManager.FindByNameAsync(username);
-            var role = await _userManager.GetRolesAsync(user);
 
             if (!await _userManager.CheckPasswordAsync(user, password))
             {
@@ -122,8 +94,14 @@ namespace WebApi.Controllers
             var claims = new List<Claim>
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, role.FirstOrDefault())
                 };
+
+            var roles = await _userManager.GetRolesAsync(user);
+
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimsIdentity.DefaultRoleClaimType, role));
+            }
 
             var claimsIdentity = new ClaimsIdentity(claims, "Token",
                 ClaimsIdentity.DefaultNameClaimType,
