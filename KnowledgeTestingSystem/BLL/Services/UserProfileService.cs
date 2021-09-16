@@ -73,8 +73,8 @@ namespace BLL.Services
                 throw new TestingSystemException("User profile was not found");
             }
 
-            UserProfileDTO testModel = automapper.Map<UserProfileDTO>(userProfile);
-            return testModel;
+            UserProfileDTO userProfileModel = automapper.Map<UserProfileDTO>(userProfile);
+            return userProfileModel;
         }
 
         public async Task UpdateAsync(UserProfileDTO model)
