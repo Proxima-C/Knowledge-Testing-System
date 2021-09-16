@@ -71,7 +71,7 @@ namespace WebApi.Controllers
             if (!result.Succeeded)
                 return BadRequest("User creation failed. Check user data and try again.");
 
-            UserDTO userProfile = new UserDTO()
+            UserProfileDTO userProfile = new UserProfileDTO()
             {
                 UserName = model.Username,
                 Name = model.Name

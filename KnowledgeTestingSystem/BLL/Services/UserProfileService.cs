@@ -21,7 +21,7 @@ namespace BLL.Services
             this.automapper = mapper;
         }
 
-        public async Task AddAsync(UserDTO model)
+        public async Task AddAsync(UserProfileDTO model)
         {
             if (model == null)
             {
@@ -58,13 +58,13 @@ namespace BLL.Services
             await database.SaveAsync();
         }
 
-        public async Task<IEnumerable<UserDTO>> GetAll()
+        public async Task<IEnumerable<UserProfileDTO>> GetAll()
         {
             IEnumerable<UserProfile> usersProfiles = await database.UserProfileRepository.GetAllAsync();
-            return automapper.Map<IEnumerable<UserProfile>, IEnumerable<UserDTO>>(usersProfiles);
+            return automapper.Map<IEnumerable<UserProfile>, IEnumerable<UserProfileDTO>>(usersProfiles);
         }
 
-        public async Task<UserDTO> GetByIdAsync(int id)
+        public async Task<UserProfileDTO> GetByIdAsync(int id)
         {
             UserProfile userProfile = await database.UserProfileRepository.GetByIdAsync(id);
 
@@ -73,11 +73,11 @@ namespace BLL.Services
                 throw new TestingSystemException("User profile was not found");
             }
 
-            UserDTO testModel = automapper.Map<UserDTO>(userProfile);
+            UserProfileDTO testModel = automapper.Map<UserProfileDTO>(userProfile);
             return testModel;
         }
 
-        public async Task UpdateAsync(UserDTO model)
+        public async Task UpdateAsync(UserProfileDTO model)
         {
             if (model == null)
             {
