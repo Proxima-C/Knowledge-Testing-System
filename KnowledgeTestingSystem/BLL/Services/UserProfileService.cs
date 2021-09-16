@@ -28,7 +28,7 @@ namespace BLL.Services
                 throw new TestingSystemException("User profile can not be null");
             }
 
-            if (string.IsNullOrEmpty(model.UserName))
+            if (string.IsNullOrEmpty(model.UserName) || string.IsNullOrEmpty(model.Name))
             {
                 throw new TestingSystemException("User profile has incorrect data");
             }
@@ -84,7 +84,7 @@ namespace BLL.Services
                 throw new TestingSystemException("User profile can not be null");
             }
 
-            if (string.IsNullOrEmpty(model.UserName))
+            if (string.IsNullOrEmpty(model.UserName) || string.IsNullOrEmpty(model.Name))
             {
                 throw new TestingSystemException("User profile has incorrect data");
             }
