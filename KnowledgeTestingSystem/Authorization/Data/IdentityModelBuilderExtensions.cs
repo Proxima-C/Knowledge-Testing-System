@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Authorization.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace Authorization.Models
+namespace Authorization.Data
 {
     public static class IdentityModelBuilderExtensions
     {
