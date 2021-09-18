@@ -33,12 +33,6 @@ namespace BLL.Services
                 throw new TestingSystemException("User profile has incorrect data");
             }
 
-            IEnumerable<UserProfile> usersProfiles = await database.UserProfileRepository.GetAllAsync();
-            if (usersProfiles.Any(u => u.UserName == model.UserName))
-            {
-                throw new TestingSystemException("Username already exists");
-            }
-
             UserProfile userProfile = automapper.Map<UserProfile>(model);
 
             await database.UserProfileRepository.AddAsync(userProfile);
@@ -77,6 +71,25 @@ namespace BLL.Services
             return userProfileModel;
         }
 
+        public async Task<UserProfileDTO> GetByUserNameAsync(string username)
+        {
+            if (username == null)
+            {
+                throw new TestingSystemException("User name can not be null");
+            }
+
+            IEnumerable<UserProfile> userProfiles = await database.UserProfileRepository.GetAllAsync();
+            UserProfile userProfile = userProfiles.FirstOrDefault(p => p.UserName == username);
+
+            if (userProfile == null)
+            {
+                throw new TestingSystemException("User profile was not found");
+            }
+
+            UserProfileDTO userProfileModel = automapper.Map<UserProfileDTO>(userProfile);
+            return userProfileModel;
+        }
+
         public async Task UpdateAsync(UserProfileDTO model)
         {
             if (model == null)
@@ -87,12 +100,6 @@ namespace BLL.Services
             if (string.IsNullOrEmpty(model.UserName) || string.IsNullOrEmpty(model.Name))
             {
                 throw new TestingSystemException("User profile has incorrect data");
-            }
-
-            IEnumerable<UserProfile> usersProfiles = await database.UserProfileRepository.GetAllAsync();
-            if (usersProfiles.Any(u => u.UserName == model.UserName))
-            {
-                throw new TestingSystemException("Username already exists");
             }
 
             UserProfile userProfile = automapper.Map<UserProfile>(model);
