@@ -50,6 +50,8 @@ namespace WebApi
             services.AddScoped<ITestAnswerService, TestAnswerService>();
             services.AddScoped<ITestStatisticsService, TestStatisticsService>();
             services.AddScoped<IUserProfileService, UserProfileService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAccountService, AccountService>();
 
             services.AddAuthentication(options => 
             {
