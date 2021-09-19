@@ -24,38 +24,30 @@ namespace BLL.Services
 
         public async Task AddAsync(CreateUserDTO model)
         {
-            using (TransactionScope scope = new TransactionScope())
+            //using TransactionScope scope = new TransactionScope();
+
+            AppUser appUser = new AppUser()
             {
-                AppUser appUser = new AppUser()
-                {
-                    UserName = model.UserName,
-                    Email = model.Email
-                };
-                var result = await _userManager.CreateAsync(appUser, model.Password);
+                UserName = model.UserName,
+                Email = model.Email
+            };
+            var result = await _userManager.CreateAsync(appUser, model.Password);
 
-                if (!result.Succeeded)
-                    throw new TestingSystemException("User creation failed.Check user data and try again.");
+            if (!result.Succeeded)
+                throw new TestingSystemException("User creation failed.Check user data and try again.");
 
-                UserProfileDTO userProfile = new UserProfileDTO()
-                {
-                    UserName = model.UserName,
-                    Name = model.Name
-                };
-                await _userProfileService.AddAsync(userProfile);
+            UserProfileDTO userProfile = new UserProfileDTO()
+            {
+                UserName = model.UserName,
+                Name = model.Name,
+            };
+            await _userProfileService.AddAsync(userProfile);
 
-                scope.Complete();
-            }
-        }
-
-        public Task AddAsync(UserDTO model)
-        {
-            throw new System.NotImplementedException();
+            //scope.Complete();
         }
 
         public async Task DeleteByIdAsync(string userId)
         {
-            using TransactionScope scope = new TransactionScope();
-
             AppUser appUser = await _userManager.FindByIdAsync(userId);
 
             if (appUser == null)
@@ -73,13 +65,6 @@ namespace BLL.Services
             UserProfileDTO userProfile = await _userProfileService.GetByUserNameAsync(appUser.UserName);
 
             await _userProfileService.DeleteByIdAsync(userProfile.Id);
-
-            scope.Complete();
-        }
-
-        public Task DeleteByIdAsync(int modelId)
-        {
-            throw new System.NotImplementedException();
         }
 
         public async Task<IEnumerable<UserDTO>> GetAll()
@@ -125,14 +110,11 @@ namespace BLL.Services
             return userDTO;
         }
 
-        public Task<UserDTO> GetByIdAsync(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public async Task UpdateAsync(UserDTO model)
         {
-            using TransactionScope scope = new TransactionScope();
+            var userExists = await _userManager.FindByNameAsync(model.UserName);
+            if (userExists != null)
+                throw new TestingSystemException("Username already exists.");
 
             AppUser appUser = await _userManager.FindByIdAsync(model.UserId);
 
@@ -159,8 +141,6 @@ namespace BLL.Services
             }
 
             await _userProfileService.UpdateAsync(userProfile);
-
-            scope.Complete();
         }
     }
 }
