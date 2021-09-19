@@ -53,9 +53,9 @@ namespace BLL.Services
 
         public async Task RegisterAsync(RegisterModel model)
         {
-            //var userExists = await _userManager.FindByNameAsync(model.Username);
-            //if (userExists != null)
-            //    throw new TestingSystemException("Username already exists.");
+            var userExists = await _userManager.FindByNameAsync(model.Username);
+            if (userExists != null)
+                throw new TestingSystemException("Username already exists.");
 
             AppUser user = new AppUser()
             {
