@@ -32,10 +32,10 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<UserDTO>> Add([FromBody] CreateUserDTO user)
+        public async Task<IActionResult> Add([FromBody] CreateUserDTO user)
         {
             await _userService.AddAsync(user);
-            return Ok(user);
+            return Ok("User created successfully.");
         }
 
         [HttpPut]
@@ -46,10 +46,10 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
             await _userService.DeleteByIdAsync(id);
-            return Ok();
+            return Ok("User deleted successfully.");
         }
     }
 }
