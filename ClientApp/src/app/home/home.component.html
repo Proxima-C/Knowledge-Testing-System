@@ -1,9 +1,7 @@
 <div class="tests-container">
-  <div class="single-item" *ngFor="let test of tests">
+  <div class="test" *ngFor="let test of tests" routerLink="/test/{{test.id}}">
     <p class="title">{{ test.title }}</p>
-    <p class="right-title">
-      {{ test.testDuration }}
-    </p>
-    <p>{{ test.description }}</p>
+    <p class="duration">Duration: {{ test.testDuration }} min</p>
+    <p class="description">Description: {{ test.description }}</p>
   </div>
 </div>

@@ -1,17 +1,37 @@
 .tests-container {
-  display: inline-grid;
+  display: grid;
   width: 100%;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 1em;
 }
 
-.test-item {
-  width: 100%;
-  box-shadow: 0 0 5px #dddddd;
-  border-radius: 5px;
-  padding: 1em;
+.test {
+  box-shadow: 0 4px 8px 0 #000000cc;
+  transition: 0.3s;
+  border: 2px solid #080441;
+  border-radius: 20px;
+  padding: 2px 16px;
+}
+
+.test:hover {
+  box-shadow: 0 8px 16px 0 #000000cc;
+  border: 2px solid #49439e;
 }
 
 .title {
-  font-weight: 600;
+  font-weight: 500;
+}
+
+.duration {
+  font-weight: 400;
+  font-style: italic;
+}
+
+.description {
+  max-width: 100%;
+  font-weight: 400;
+  font-style: italic;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
