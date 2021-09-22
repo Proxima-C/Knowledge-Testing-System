@@ -52,7 +52,7 @@ namespace BLL.Services
             await database.SaveAsync();
         }
 
-        public async Task<IEnumerable<UserProfileDTO>> GetAll()
+        public async Task<IEnumerable<UserProfileDTO>> GetAllAsync()
         {
             IEnumerable<UserProfile> usersProfiles = await database.UserProfileRepository.GetAllAsync();
             return automapper.Map<IEnumerable<UserProfile>, IEnumerable<UserProfileDTO>>(usersProfiles);

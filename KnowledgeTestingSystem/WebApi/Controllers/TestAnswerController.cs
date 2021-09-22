@@ -21,7 +21,7 @@ namespace WebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TestAnswerDTO>>> GetAll()
         {
-            IEnumerable<TestAnswerDTO> answers = await _testAnswerService.GetAll();
+            IEnumerable<TestAnswerDTO> answers = await _testAnswerService.GetAllAsync();
             return Ok(answers);
         }
 

@@ -22,7 +22,7 @@ namespace WebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TestStatisticsDTO>>> GetAll()
         {
-            IEnumerable<TestStatisticsDTO> statistics = await _testStatisticsService.GetAll();
+            IEnumerable<TestStatisticsDTO> statistics = await _testStatisticsService.GetAllAsync();
             return Ok(statistics);
         }
 

@@ -51,7 +51,7 @@ namespace BLL.Services
             await database.SaveAsync();
         }
 
-        public async Task<IEnumerable<TestDTO>> GetAll()
+        public async Task<IEnumerable<TestDTO>> GetAllAsync()
         {
             IEnumerable<Test> tests = await database.TestRepository.GetAllAsync();
             return automapper.Map<IEnumerable<Test>, IEnumerable<TestDTO>>(tests);

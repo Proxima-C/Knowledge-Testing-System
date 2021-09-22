@@ -68,7 +68,7 @@ namespace BLL.Services
 
         public async Task<IEnumerable<UserDTO>> GetAll()
         {
-            IEnumerable<UserProfileDTO> usersProfiles = await _userProfileService.GetAll();
+            IEnumerable<UserProfileDTO> usersProfiles = await _userProfileService.GetAllAsync();
             IEnumerable<AppUser> appUsers = await _userManager.Users.ToListAsync();
             IEnumerable<UserDTO> users = (
                 from appUser in appUsers
