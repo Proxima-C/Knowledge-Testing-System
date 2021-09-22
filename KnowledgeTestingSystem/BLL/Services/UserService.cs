@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Transactions;
 
 namespace BLL.Services
 {
@@ -24,7 +23,9 @@ namespace BLL.Services
 
         public async Task AddAsync(CreateUserDTO model)
         {
-            //using TransactionScope scope = new TransactionScope();
+            var userExists = await _userManager.FindByNameAsync(model.UserName);
+            if (userExists != null)
+                throw new TestingSystemException("Username already exists.");
 
             AppUser appUser = new AppUser()
             {
@@ -42,8 +43,6 @@ namespace BLL.Services
                 Name = model.Name,
             };
             await _userProfileService.AddAsync(userProfile);
-
-            //scope.Complete();
         }
 
         public async Task DeleteByIdAsync(string userId)
@@ -86,9 +85,9 @@ namespace BLL.Services
             return users;
         }
 
-        public async Task<UserDTO> GetByIdAsync(string id)
+        public async Task<UserDTO> GetByIdAsync(string userId)
         {
-            AppUser appUser = await _userManager.FindByIdAsync(id);
+            AppUser appUser = await _userManager.FindByIdAsync(userId);
 
             if (appUser == null)
             {
