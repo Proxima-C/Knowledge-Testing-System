@@ -1,5 +1,6 @@
 ﻿using BLL.DTO;
 using BLL.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -31,6 +32,7 @@ namespace WebApi.Controllers
             return Ok(user);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] CreateUserDTO user)
         {
@@ -38,6 +40,7 @@ namespace WebApi.Controllers
             return Ok("User created successfully.");
         }
 
+        [Authorize(Roles = "Admin, Moderator")]
         [HttpPut]
         public async Task<ActionResult<UserDTO>> Update([FromBody] UserDTO user)
         {
@@ -45,6 +48,7 @@ namespace WebApi.Controllers
             return Ok(user);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {
