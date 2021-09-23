@@ -8,7 +8,7 @@ namespace Authorization
         public const string Issuer = "KnowledgeTestingSystem_WebAPI_JWT_Server";
         public const string Audience = "KnowledgeTestingSystem_WebAPI_JWT_Client";
         const string Key = "mysupersecret_secretkey!123";
-        public const int LifeTimeInMinutes = 1;
+        public const int LifeTimeInMinutes = 30;
 
         public static SymmetricSecurityKey GetSymmetricSecurityKey()
         {
